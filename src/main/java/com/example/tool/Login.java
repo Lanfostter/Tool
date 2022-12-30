@@ -5,6 +5,7 @@ import java.util.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -15,14 +16,15 @@ import com.example.tool.dto.TokenExtDto;
 import com.globits.education.utils.RestApiUtils;
 
 public class Login {
+//	http://localhost:8081/education/public/login/ext/loginnew
 	public static String host = "localhost";
 	public static String port = "8081";
-	public static String api = "/education/oauth/token";
+	public static String api = "/education/public/login/ext/loginnew";
 	public static String access_token = "";
 	public static String token_type = "";
 	public static String url = host + ":" + port + api;
 
-	public static ResponseEntity<String> postLogin(String username, String password, String url) {
+	public static ResponseEntity<String> postLogin(String username, String password, String url, String jString) {
 		try {
 //			if(RestApiUtils.host==null|| RestApiUtils.host.length()<=0) {
 //				RestApiUtils.getConfig();
@@ -33,6 +35,8 @@ public class Login {
 //			headersLogin.add("Authorization", "Basic ZWR1Y2F0aW9uX2NsaWVudDpwYXNzd29yZA==");
 			headersLogin.add("Authorization", "Basic " + base64Creds);
 			headersLogin.add("Content-Type", "application/x-www-form-urlencoded");
+			headersLogin.setContentType(MediaType.APPLICATION_JSON);
+
 			// headersLogin.add("Accept-Charset", "UTF-8");
 			MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
 			map.add("client_id", "education_client");
@@ -40,7 +44,7 @@ public class Login {
 			map.add("username", username);
 			map.add("password", password);
 			map.add("client_secret", "password");
-			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headersLogin);
+			HttpEntity<String> request = new HttpEntity<String>(jString, headersLogin);
 //			String body="client_id=education_client&grant_type=password&username=tuyenlt&password=Globits@123&client_secret=password";
 //			HttpEntity<String> request = new HttpEntity<String>(body, headersLogin);
 			RestTemplate restTemplate = new RestTemplate();
@@ -93,7 +97,7 @@ public class Login {
 //		try {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
-		postLogin(username, password, urlLogin);
+		postLogin(username, password, urlLogin, null);
 		headers.add("Authorization", com.example.tool.Login.token_type + " " + Login.access_token);
 		HttpEntity<T> entity = new HttpEntity<T>((T) parameterObject, headers);
 		ResponseEntity<T> response = restTemplate.exchange(url, HttpMethod.POST, entity, returnType);

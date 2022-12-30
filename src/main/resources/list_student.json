@@ -1,17 +1,10 @@
 [
-{
-	"username":"admin",
-	"password":"admin"
-},
-{
-	"username":"admin1",
-	"password":"12345"}
-,
-{
-	"username":"admin2",
-	"password":"12345"}
-,
-{
-	"username":"admin3",
-	"password":"12345"}
+	{
+		"username": "1951060525",
+		"password": "001201002605"
+	},
+	{
+		"username": "1951060664",
+		"password": "001201003960"
+	}
 ]

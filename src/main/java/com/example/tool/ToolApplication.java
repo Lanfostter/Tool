@@ -13,9 +13,9 @@ import com.example.tool.Listener.ApplicationStartupListener;
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class ToolApplication {
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(ToolApplication.class, args);
-		ApplicationStartupListener applicationStartupListener = new ApplicationStartupListener();
-		applicationStartupListener.onApplicationEvent(null);
+		SpringApplication.run(ToolApplication.class, args);
+//		ApplicationStartupListener applicationStartupListener = new ApplicationStartupListener();
+//		applicationStartupListener.onApplicationEvent(null);
 	}
 
 }
